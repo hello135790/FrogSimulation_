@@ -1,3 +1,4 @@
+import java.util.Scanner;
 public class FrogSimulation {
 
     /** Distance, in inches, from the starting position to the goal. */
@@ -21,7 +22,10 @@ public class FrogSimulation {
      * frog hops.
      */
     private int hopDistance() {
-        /* implementation not shown */ }
+        Scanner s = new Scanner(System.in);
+        System.out.println("How far?");
+        return s.nextInt();
+    }
 
     /**
      * Simulates a frog attempting to reach the goal as described in part (a).
@@ -30,7 +34,16 @@ public class FrogSimulation {
      * false otherwise.
      */
     public boolean simulate() {
-        /* to be implemented in part (a) */ }
+        int hops = 0;
+        int distance = 0;
+        while (hops < maxHops) {
+            distance += hopDistance();
+            if (distance < 0) return false;
+            if (distance >= goalDistance) return true;
+            hops++;
+        }
+        return false;
+    }
 
     /**
      * Runs num simulations and returns the proportion of simulations in which the
@@ -38,5 +51,10 @@ public class FrogSimulation {
      * Precondition: num > 0
      */
     public double runSimulations(int num) {
-        /* to be implemented in part (b) */ }
+        double successes = 0;
+        for (int i=0; i<num; i++) {
+            if (simulate()) successes++;
+        }
+        return successes / num;
+    }
 }
